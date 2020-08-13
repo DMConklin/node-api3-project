@@ -88,10 +88,10 @@ router.delete('/:id', validateUserId(), async (req, res) => {
   }
 });
 
-router.put('/:id', validateUserId(), async (req, res) => {
+router.put('/:id', validateUserId(), validateUser(), async (req, res) => {
   // do your magic!
   try {
-    await db.update(req.body)
+    await db.update(req.params.id, req.body)
     const user = await db.getById(req.params.id)
     res.json(user)
   } catch(err) {
